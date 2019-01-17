@@ -1,8 +1,14 @@
 package com.concretepage.springbatch;
+
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Marksheet {
 	private String stdId;
 	private String stdName;
 	private int totalSubMark;
+	public Marksheet(){}
 	public Marksheet(String stdId, int totalSubMark){
 		this.stdId = stdId;
 		this.totalSubMark = totalSubMark;

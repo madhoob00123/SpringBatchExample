@@ -86,7 +86,7 @@ public class BatchConfiguration {
         xmlFileWriter.setRootTagName("marksheet");
 
         Jaxb2Marshaller markSheetMarshaller = new Jaxb2Marshaller();
-        markSheetMarshaller.setClassesToBeBound(Marksheet.class);
+        markSheetMarshaller.setClassesToBeBound(new Class[]{Marksheet.class});
         xmlFileWriter.setMarshaller(markSheetMarshaller);
 
         return xmlFileWriter;
@@ -103,20 +103,21 @@ public class BatchConfiguration {
     public Job createMarkSheet(JobBuilderFactory jobs, Step step,Step step1) {
         return jobs.get("createMarkSheet")
                 .flow(step)
-               .next(step1)
+              // .next(step1)
                 .end()
                 .build();
     }
 
     @Bean
     public Step step(StepBuilderFactory stepBuilderFactory, ItemReader<Student> reader,
-            ItemWriter<Marksheet> writer, ItemProcessor<Student, Marksheet> processor,ItemWriter<Marksheet> writer1) {
+            ItemWriter<Marksheet> writer, ItemProcessor<Student, Marksheet> processor,ItemWriter<Marksheet> writer1,ItemWriter<Marksheet> xmlWriter) {
         return stepBuilderFactory.get("step")
                 .<Student, Marksheet> chunk(5)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
                 .writer(writer1)
+                .writer(xmlWriter)
                 .build();
     }
 

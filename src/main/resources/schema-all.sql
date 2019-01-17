@@ -1,0 +1,8 @@
+DROP TABLE marksheet IF EXISTS;
+
+CREATE TABLE marksheet (
+   -- stdId BIGINT IDENTITY NOT NULL PRIMARY KEY,
+    stdId VARCHAR(30) NOT NULL PRIMARY KEY,
+    totalSubMark INTEGER
+
+);
